@@ -12,10 +12,6 @@ var corsOptions = {
 const db = require("./app/models");
 db.sequelize.sync();
 
-// var connection = require("./library/db");
-// var indexRouter = require("./routes/index");
-// var citiesRouter = require("./routes/customers");
-
 app.use(cors(corsOptions));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());

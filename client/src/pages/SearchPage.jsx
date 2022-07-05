@@ -10,10 +10,12 @@ import {
 } from "@mui/material";
 import CityApiService from "../services/cityapi.service";
 import axios from "axios";
+import CityRow from "../components/CityRow";
 
 const SearchPage = (props) => {
   const [cityName, setCityName] = useState("");
   const [results, setResults] = useState([]);
+  var cityRows = [];
 
   const handleNameChange = (e) => {
     setCityName(e.target.value);
@@ -35,12 +37,17 @@ const SearchPage = (props) => {
 
     CityApiService.get(cityName).then((response) => {
       console.log(response);
-      setResults(response.data[0].name.common);
+      setResults([...results, response.data[0]]);
     });
   };
 
   useEffect(() => {
     console.log(results);
+    cityRows.length = 0;
+
+    for (let index = 0; index < results.length; index++) {
+      cityRows.push(<CityRow results={results[index]}></CityRow>);
+    }
     // console.log(results.name.common);
   }, [results]);
 
@@ -101,7 +108,15 @@ const SearchPage = (props) => {
           </Grid>
           <Grid item xs={1}></Grid>
           <Grid item xs={5} sx={{ marginTop: "10px" }}>
-            <Typography variant="body1">Result</Typography>
+            <Typography variant="body1">Results</Typography>
+            {results.length > 0 &&
+              results.map((result, index) => {
+                return (
+                  <div key={index}>
+                    <CityRow results={result}></CityRow>{" "}
+                  </div>
+                );
+              })}
           </Grid>
         </Grid>
       </Box>
