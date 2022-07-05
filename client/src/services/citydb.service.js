@@ -1,6 +1,6 @@
-import http from "../http-common.js";
+import http from "../APIs/http-common.js";
 
-class CitiesDataService {
+class CitiesDatabaseService {
   getAll() {
     return http.get("/cities");
   }
@@ -29,4 +29,4 @@ class CitiesDataService {
     return http.get(`/cities?name=${name}`);
   }
 }
-export default new CitiesDataService();
+export default new CitiesDatabaseService();

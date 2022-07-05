@@ -4,12 +4,13 @@ const express = require("express");
 // Express middleware module for enabling Cross Origin Resource Sharing (CORS)
 const cors = require("cors");
 const app = express();
+
 var corsOptions = {
   origin: "http://localhost:3001",
 };
 
-// const bodyParser = require("body-parser");
-const mysql = require("mysql");
+const db = require("./app/models");
+db.sequelize.sync();
 
 // var connection = require("./library/db");
 // var indexRouter = require("./routes/index");
@@ -23,5 +24,7 @@ app.use(express.json());
 app.get("/", (req, res) => {
   res.json({ message: "Welcome to CreditSafe!" });
 });
+
+require("./app/routes/cities.routes")(app);
 
 module.exports = app;
