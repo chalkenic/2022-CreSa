@@ -2,12 +2,12 @@ import weather from "../APIs/http-open-weather-map.js";
 import countries from "../APIs/http-rest-countries.js";
 
 class CitiesApiService {
-  get(city) {
+  get(country) {
     var concatData = {};
-    var cityData = countries.get(`/name/${city}`);
+    var countryData = countries.get(`/name/${country}`);
+    console.log(countryData);
     // var weather = weather.get(`lat=${cityData.}`)
-    concatData.push({ city: cityData });
-    return concatData;
+    return countryData;
   }
 }
 export default new CitiesApiService();
