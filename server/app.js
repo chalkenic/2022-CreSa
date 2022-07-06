@@ -26,7 +26,7 @@ app.use((req, res, next) => {
   next();
 });
 
-// simple route
+// simple route to server port.
 app.get("/", (req, res) => {
   res.json({ message: "Welcome to CreditSafe's API!" });
 });

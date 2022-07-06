@@ -1,0 +1,25 @@
+{
+  "name": "cd_ex",
+  "version": "1.0.0",
+  "description": "\"# CS_exercise\"",
+  "main": "index.js",
+  "dependencies": {
+    "concurrently": "^7.2.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "cd server && npm run test ",
+    "start": "concurrently \"cd client && npm start\" \"cd server && npm start\" ",
+    "packageInstall": "concurrently  \"cd client && npm install\" \"cd server && npm install\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chalkenic/CS_exercise.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/chalkenic/CS_exercise/issues"
+  },
+  "homepage": "https://github.com/chalkenic/CS_exercise#readme"
+}

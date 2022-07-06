@@ -4,12 +4,14 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest --detectOpenHandles",
+    "start": "node server.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "chai": "^4.3.6",
     "cors": "^2.8.5",
     "dotenv": "^16.0.1",
     "express": "^4.18.1",
@@ -18,6 +20,14 @@
     "express-validator": "^6.14.2",
     "method-override": "^3.0.0",
     "mysql2": "^2.3.3",
-    "sequelize": "^6.21.2"
+    "proxyquire": "^2.1.3",
+    "sequelize": "^6.21.2",
+    "sequelize-cli": "^6.4.1",
+    "sequelize-test-helpers": "^1.4.2",
+    "sinon": "^14.0.0",
+    "supertest": "^6.2.4"
+  },
+  "devDependencies": {
+    "jest": "^28.1.2"
   }
 }
