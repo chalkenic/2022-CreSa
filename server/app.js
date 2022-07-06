@@ -28,7 +28,7 @@ app.use((req, res, next) => {
 
 // simple route
 app.get("/", (req, res) => {
-  res.json({ message: "Welcome to CreditSafe!" });
+  res.json({ message: "Welcome to CreditSafe's API!" });
 });
 
 require("./app/routes/cities.routes")(app);

@@ -12,8 +12,10 @@ import AdminRow from "../components/AdminRow";
 import CitiesDatabaseService from "../services/citydb.service";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import CityAddModal from "../components/CityAddModal";
+import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
+import { Box } from "@mui/system";
 
-const CitiesPage = (props) => {
+const AdminPage = (props) => {
   const [cityData, setCityData] = useState([]);
   const [open, setOpen] = useState(false);
 
@@ -28,6 +30,12 @@ const CitiesPage = (props) => {
     setOpen(false);
   };
 
+  const handleDelete = () => {
+    CitiesDatabaseService.deleteAll().then((response) => {
+      window.location.reload();
+    });
+  };
+
   useEffect(() => {
     setCityData([]);
     CitiesDatabaseService.getAll().then((response) => {
@@ -40,18 +48,30 @@ const CitiesPage = (props) => {
 
   return (
     <Fragment>
-      <Grid container marginBottom={2} justifyContent={"center"}>
-        <Grid item xs={12} align="center" paddingRight={105}>
-          <Button
-            sx={{
-              display: "inline-block",
-              padding: 0,
-              minHeight: 0,
-              minWidth: 0,
-            }}
-            onClick={handleOpen}
-            startIcon={<AddCircleIcon style={{ fontSize: 80 }} />}
-          ></Button>
+      <Grid container justifyContent={"center"}>
+        <Grid item xs={12} align="center">
+          <Box>
+            <Button
+              sx={{
+                display: "inline-block",
+
+                minHeight: 0,
+                minWidth: 0,
+              }}
+              onClick={handleOpen}
+              startIcon={<AddCircleIcon style={{ fontSize: 80 }} />}
+            ></Button>
+            <Button
+              sx={{
+                display: "inline-block",
+                marginLeft: 40,
+                minHeight: 0,
+                minWidth: 0,
+              }}
+              onClick={handleDelete}
+              startIcon={<RemoveCircleIcon style={{ fontSize: 80 }} />}
+            ></Button>
+          </Box>
         </Grid>
         <Grid item xs={12} align="center">
           <TableContainer sx={{ marginBottom: 5 }}>
@@ -60,22 +80,22 @@ const CitiesPage = (props) => {
                 <TableCell component="th" scope="row" sx={{ fontWeight: 600 }}>
                   Name
                 </TableCell>
-                <TableCell align="right" sx={{ fontWeight: 600 }}>
+                <TableCell align="center" sx={{ fontWeight: 600 }}>
                   State
                 </TableCell>
-                <TableCell align="right" sx={{ fontWeight: 600 }}>
+                <TableCell align="center" sx={{ fontWeight: 600 }}>
                   Country
                 </TableCell>
-                <TableCell align="right" sx={{ fontWeight: 600 }}>
+                <TableCell align="center" sx={{ fontWeight: 600 }}>
                   Tourist Rating
                 </TableCell>
-                <TableCell align="right" sx={{ fontWeight: 600 }}>
+                <TableCell align="center" sx={{ fontWeight: 600 }}>
                   Date Established
                 </TableCell>
-                <TableCell align="right" sx={{ fontWeight: 600 }}>
-                  Estimated Population
+                <TableCell align="center" sx={{ fontWeight: 600 }}>
+                  Country Population
                 </TableCell>
-                <TableCell align="right" sx={{ fontWeight: 600 }}>
+                <TableCell align="center" sx={{ fontWeight: 600 }}>
                   Currency
                 </TableCell>
                 <TableCell align="center" sx={{ fontWeight: 600 }}>
@@ -102,4 +122,4 @@ const CitiesPage = (props) => {
     </Fragment>
   );
 };
-export default CitiesPage;
+export default AdminPage;

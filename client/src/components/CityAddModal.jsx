@@ -12,6 +12,7 @@ import { makeStyles } from "@mui/styles";
 import { Box } from "@mui/system";
 import React, { Fragment, useEffect, useRef, useState } from "react";
 import CitiesDatabaseService from "../services/citydb.service";
+import CitiesApiService from "../services/cityapi.service";
 
 const useStyles = makeStyles(() => ({
   titleText: {
@@ -29,16 +30,6 @@ const useStyles = makeStyles(() => ({
   infoText: {
     fontSize: 22,
     textAlign: "right !important",
-  },
-
-  tenantBox: {
-    border: "1px solid #000",
-    borderRadius: "2px",
-    padding: "10px",
-  },
-
-  tenantText: {
-    padding: "10px",
   },
 
   divider: {
@@ -64,12 +55,13 @@ const CityAddModal = (props) => {
   const [cityState, setCityState] = useState("");
   const [rating, setRating] = useState("");
   const [established, setEstablished] = useState("");
+
   const [error, setError] = useState("");
   const handleClose = () => {
     props.setOpen(false);
   };
 
-  const handleAdd = () => {
+  const handleGenerateData = () => {
     if (cityName.length < 1) {
       setError("Enter a city name.");
     } else if (cityCountry.length < 1) {
@@ -81,6 +73,40 @@ const CityAddModal = (props) => {
     } else if (established.length < 1) {
       setError("Enter a city establishment date.");
     } else {
+      console.log("got here 1!");
+      CitiesApiService.getCountry(cityName)
+        .then((response) => {
+          var currencyTemp = Object.values(response.data[0].currencies)[0];
+          var population = response.data[0].population;
+          var currencyString = `${currencyTemp.name} (${currencyTemp.symbol})`;
+
+          handleAdd(population, currencyString);
+        })
+        .catch(function (err) {
+          var population;
+          var currencyString;
+
+          handleAdd(population, currencyString);
+        });
+    }
+  };
+
+  const handleAdd = (pop, curr) => {
+    console.log(curr);
+    if (pop !== null && curr !== null) {
+      CitiesDatabaseService.create({
+        name: cityName,
+        country: cityCountry,
+        state: cityState,
+        rating: rating,
+        established: established,
+        population: pop,
+        currency: curr,
+      }).then(() => {
+        handleClose();
+        window.location.reload();
+      });
+    } else {
       CitiesDatabaseService.create({
         name: cityName,
         country: cityCountry,
@@ -89,21 +115,13 @@ const CityAddModal = (props) => {
         established: established,
       }).then(() => {
         handleClose();
-        handleAdd({
-          name: cityName,
-          country: cityCountry,
-          state: cityState,
-          rating: rating,
-          established: established,
-        });
+        window.location.reload();
       });
     }
   };
 
-  console.log(cityCountry);
-
   return (
-    <div>
+    <>
       <Dialog
         open={props.open}
         onClose={handleClose}
@@ -257,7 +275,7 @@ const CityAddModal = (props) => {
                 <Button
                   variant="contained"
                   color="success"
-                  onClick={handleAdd}
+                  onClick={handleGenerateData}
                   size="large"
                 >
                   Add
@@ -274,7 +292,7 @@ const CityAddModal = (props) => {
           </Grid>
         </Grid>
       </Dialog>
-    </div>
+    </>
   );
 };
 export default CityAddModal;

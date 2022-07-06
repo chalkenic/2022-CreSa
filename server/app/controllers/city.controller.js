@@ -3,23 +3,19 @@ const City = db.cities;
 const Op = db.Sequelize.Op;
 
 exports.create = (req, res) => {
-  console.log(req.body.name);
   if (!req.body.name) {
     res.status(400).send({
       message: "City name must be provided!",
     });
     return;
   }
+
   const city = {
     name: req.body.name,
 
     state: req.body.state,
 
     country: req.body.country,
-
-    latitude: req.body.latitude,
-
-    longitude: req.body.longitude,
 
     rating: req.body.rating,
 
@@ -31,8 +27,7 @@ exports.create = (req, res) => {
 
     alpha3Code: req.body.alpha3Code,
 
-    currencyCode: req.body.currencyCode,
-    weather: req.body.weather,
+    currency: req.body.currency,
   };
 
   City.create(city)
@@ -46,7 +41,6 @@ exports.create = (req, res) => {
       });
     });
 };
-
 // Retrieve all Cities from the database.
 exports.findAll = (req, res) => {
   const name = req.query.name;
@@ -84,7 +78,6 @@ exports.findOne = (req, res) => {
 };
 // Update a City by the id in the request
 exports.update = (req, res) => {
-  console.log(req.params.id);
   const id = req.params.id;
   City.update(req.body, {
     where: { id: id },
