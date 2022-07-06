@@ -4,7 +4,7 @@ import countries from "../APIs/http-rest-countries.js";
 class CitiesApiService {
   get(country) {
     var concatData = {};
-    var countryData = countries.get(`/name/${country}`);
+    var countryData = countries.get(`/capital/${country}`);
     console.log(countryData);
     // var weather = weather.get(`lat=${cityData.}`)
     return countryData;
