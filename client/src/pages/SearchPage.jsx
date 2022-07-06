@@ -12,7 +12,7 @@ import CityApiService from "../services/cityapi.service";
 import CityRow from "../components/CityRow";
 import CityTable from "../components/CityTable";
 
-const SearchPage = (props) => {
+const SearchPage = () => {
   const [cityName, setCityName] = useState("");
   const [results, setResults] = useState([]);
   var cityRows = [];
@@ -24,18 +24,19 @@ const SearchPage = (props) => {
   const handleAPISubmit = (e) => {
     e.preventDefault();
 
-    // // var testUrl = CityApiService.get(cityName);
-    // // console.log(testUrl);
-
-    CityApiService.get(cityName).then((response) => {
+    CityApiService.getCountry(cityName).then((response) => {
       for (let index = 0; index < response.data.length; index++) {
         setResults((results) => results.concat(response.data[index]));
       }
     });
   };
 
+  const handleClearTable = () => {
+    setResults([]);
+  };
+
   useEffect(() => {
-    cityRows.length = 0;
+    // cityRows.length = 0;
 
     for (let index = 0; index < results.length; index++) {
       cityRows.push(<CityRow results={results[index]}></CityRow>);
@@ -48,14 +49,9 @@ const SearchPage = (props) => {
       <Grid container justifyContent={"center"}>
         {/* <Grid item xs={1}></Grid> */}
         <Grid item xs={10} align="center">
-          <Paper elevation={10} sx={{ marginBottom: 5, paddingBlock: 2 }}>
-            <Typography variant="h4" align="center">
-              City weather Service
-            </Typography>
-          </Paper>
           <Paper elevation={5}>
             <Typography variant="h5" align="center">
-              Find your city by name
+              Find details by capital city
             </Typography>
             <form onSubmit={handleAPISubmit}>
               <FormControl sx={{ paddingBottom: 4 }} variant="outlined">
@@ -79,26 +75,44 @@ const SearchPage = (props) => {
                     },
                   }}
                 />
-                <Button
-                  sx={{
-                    border: "1px solid #fff",
-                    marginTop: "20px",
-                    "&:hover": {
-                      backgroundColor: "#fff",
-                      color: "green",
-                      border: "1px solid green",
-                    },
-                  }}
-                  type="submit"
-                >
-                  Submit
-                </Button>
+                <Box>
+                  <Button
+                    variant="contained"
+                    color="success"
+                    sx={{
+                      marginRight: 10,
+                      color: "success",
+                      marginTop: "20px",
+                      "&:hover": {
+                        backgroundColor: "#fff",
+                        color: "green",
+                      },
+                    }}
+                    type="submit"
+                  >
+                    Submit
+                  </Button>
+                  <Button
+                    variant="contained"
+                    color="error"
+                    onClick={handleClearTable}
+                    sx={{
+                      marginTop: "20px",
+                      color: "error",
+                      "&:hover": {
+                        backgroundColor: "#red",
+                        color: "red",
+                      },
+                    }}
+                  >
+                    Clear entries
+                  </Button>
+                </Box>
               </FormControl>
             </form>
           </Paper>
         </Grid>
-        <Grid item xs={1}></Grid>
-        <Grid item xs={10} align="center" sx={{ marginTop: "10px" }}>
+        <Grid item xs={12} align="center" sx={{ marginTop: "10px" }}>
           <CityTable cities={results} />
         </Grid>
       </Grid>
