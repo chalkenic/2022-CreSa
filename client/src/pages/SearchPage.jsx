@@ -9,8 +9,8 @@ import {
   Typography,
 } from "@mui/material";
 import CityApiService from "../services/cityapi.service";
-import CityRow from "../components/CityRow";
-import CityTable from "../components/CityTable";
+import SearchRow from "../components/SearchRow";
+import SearchTable from "../components/SearchTable";
 
 const SearchPage = () => {
   const [cityName, setCityName] = useState("");
@@ -39,7 +39,7 @@ const SearchPage = () => {
     // cityRows.length = 0;
 
     for (let index = 0; index < results.length; index++) {
-      cityRows.push(<CityRow results={results[index]}></CityRow>);
+      cityRows.push(<SearchRow results={results[index]}></SearchRow>);
     }
     // console.log(results.name.common);
   }, [results]);
@@ -113,7 +113,7 @@ const SearchPage = () => {
           </Paper>
         </Grid>
         <Grid item xs={12} align="center" sx={{ marginTop: "10px" }}>
-          <CityTable cities={results} />
+          <SearchTable cities={results} />
         </Grid>
       </Grid>
     </Box>

@@ -6,9 +6,9 @@ import {
   TableRow,
 } from "@mui/material";
 import React, { Fragment } from "react";
-import CityRow from "./CityRow";
+import CityRow from "./SearchRow";
 
-const CityTable = ({ cities }) => {
+const SearchTable = ({ cities }) => {
   return (
     <TableContainer sx={{ marginBottom: 5 }}>
       <TableHead>
@@ -47,4 +47,4 @@ const CityTable = ({ cities }) => {
     </TableContainer>
   );
 };
-export default CityTable;
+export default SearchTable;

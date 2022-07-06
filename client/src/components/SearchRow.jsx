@@ -3,7 +3,7 @@ import React, { Fragment, useEffect, useState } from "react";
 import { numberWithCommas } from "../helpers/CityTable";
 import CityApiService from "../services/cityapi.service";
 
-const CityRow = ({ city }) => {
+const SearchRow = ({ city }) => {
   const [weatherData, setWeatherData] = useState();
   const [temperData, setTemperData] = useState();
   useEffect(() => {
@@ -57,4 +57,4 @@ const CityRow = ({ city }) => {
     </TableRow>
   );
 };
-export default CityRow;
+export default SearchRow;

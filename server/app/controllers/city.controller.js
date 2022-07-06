@@ -100,7 +100,7 @@ exports.update = (req, res) => {
         });
       }
     })
-    .catch((error) => {
+    .catch(() => {
       res.status(500).send({
         message: "An error occurred while attempting to update city " + id,
       });

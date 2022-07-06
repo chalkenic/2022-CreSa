@@ -9,12 +9,6 @@ module.exports = (sequelize, Sequelize) => {
     country: {
       type: Sequelize.STRING,
     },
-    latitude: {
-      type: Sequelize.INTEGER,
-    },
-    longitude: {
-      type: Sequelize.INTEGER,
-    },
     rating: {
       type: Sequelize.STRING,
     },
@@ -22,18 +16,9 @@ module.exports = (sequelize, Sequelize) => {
       type: Sequelize.STRING,
     },
     population: {
-      type: Sequelize.INTEGER,
-    },
-    alpha2Code: {
       type: Sequelize.STRING,
     },
-    alpha3Code: {
-      type: Sequelize.STRING,
-    },
-    currencyCode: {
-      type: Sequelize.STRING,
-    },
-    weather: {
+    currency: {
       type: Sequelize.STRING,
     },
   });

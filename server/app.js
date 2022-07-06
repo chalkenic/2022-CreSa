@@ -5,16 +5,26 @@ const express = require("express");
 const cors = require("cors");
 const app = express();
 
-var corsOptions = {
-  origin: "http://localhost:3001",
-};
-
 const db = require("./app/models");
 db.sequelize.sync();
 
-app.use(cors(corsOptions));
+app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+
+app.use((req, res, next) => {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.header(
+    "Access-Control-Allow-Headers, *, Access-Control-Allow-Origin",
+    "Origin, X-Requested-with, Content_Type,Accept,Authorization",
+    "http://localhost:3000"
+  );
+  if (req.method === "OPTIONS") {
+    res.header("Access-Control-Allow-Methods", "PUT,POST,PATCH,DELETE,GET");
+    return res.status(200).json({});
+  }
+  next();
+});
 
 // simple route
 app.get("/", (req, res) => {
