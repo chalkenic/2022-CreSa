@@ -41,7 +41,7 @@ npm run packageInstall
 npm run start
 
 # Some currency symbols are not supported by base sql character set, so
-#the additional script will need to be implemented after server launch:
+additional queries will need to be ran after server has been launched:
 use citydb;
 ALTER TABLE cities CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
