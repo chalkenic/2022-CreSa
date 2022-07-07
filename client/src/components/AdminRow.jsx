@@ -1,14 +1,13 @@
-import { Box, Button, TableCell, TableRow, Typography } from "@mui/material";
-import React, { Fragment, useEffect, useState } from "react";
+import { Box, Button, TableCell, TableRow } from "@mui/material";
+import React, { useState } from "react";
 import { numberWithCommas } from "../helpers/CityTable";
-import CityApiService from "../services/cityapi.service";
-import citydbService from "../services/citydb.service";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import CityEditModal from "./CityEditModal";
 import CityDeleteModal from "./CityDeleteModal";
 
 const AdminRow = ({ city }) => {
+  // States to handle modals alongside functions to open/close.
   const [openEdit, setOpenEdit] = useState(false);
   const [openDelete, setOpenDelete] = useState(false);
   const handleEdit = (e) => {
@@ -24,13 +23,12 @@ const AdminRow = ({ city }) => {
     setOpenDelete(false);
   };
 
+  // Append commas into population integer from API for easier reading.
   var population = "";
 
   if (city.population !== null) {
     population = numberWithCommas(city.population);
   }
-
-  //   var currency = Object.values(city.currencies)[0];
 
   return (
     <>
@@ -60,6 +58,7 @@ const AdminRow = ({ city }) => {
           </Box>
         </TableCell>
       </TableRow>
+      {/* Modals open upon useState boolean changing*/}
       {openEdit && (
         <CityEditModal
           open={openEdit}

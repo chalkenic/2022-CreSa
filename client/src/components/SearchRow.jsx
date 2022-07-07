@@ -1,5 +1,5 @@
-import { Button, TableCell, TableRow, Typography } from "@mui/material";
-import React, { Fragment, useEffect, useState } from "react";
+import { Button, TableCell, TableRow } from "@mui/material";
+import React, { useEffect, useState } from "react";
 import { numberWithCommas } from "../helpers/CityTable";
 import CityApiService from "../services/cityapi.service";
 import CitiesDatabaseService from "../services/citydb.service";
@@ -9,10 +9,8 @@ const SearchRow = ({ city }) => {
   const [temperData, setTemperData] = useState();
   const [color, setColor] = useState("#f6f6f6");
 
-  console.log(city);
   useEffect(() => {
-    // setWeatherData(CityApiService.getWeather(city.latlng[0], city.latlng[1]));
-
+    // If row exists, API call will source the city location's weather.
     CityApiService.getWeather(
       city.capitalInfo.latlng[0],
       city.capitalInfo.latlng[1]
@@ -22,7 +20,8 @@ const SearchRow = ({ city }) => {
     });
   }, []);
 
-  const handleSaveEntry = (e) => {
+  // Additional method of adding new entries into database.
+  const handleSaveEntry = () => {
     var currency = Object.values(city.currencies)[0];
     CitiesDatabaseService.create({
       name: city.name.common,
@@ -37,6 +36,7 @@ const SearchRow = ({ city }) => {
 
   var population = numberWithCommas(city.population);
 
+  // Source object data from response data for easier access in table.
   var currency = Object.values(city.currencies)[0];
 
   return (
@@ -52,12 +52,12 @@ const SearchRow = ({ city }) => {
           <TableCell align="center">{city.capital}</TableCell>
           <TableCell align="center">{city.name.common}</TableCell>
           <TableCell align="center">{city.region}</TableCell>
-          {/* <TableCell align="right">{city.rating}</TableCell> */}
           <TableCell align="center">{population}</TableCell>
           <TableCell align="center">{city.cca2}</TableCell>
           <TableCell align="center">{city.cca3}</TableCell>
           <TableCell align="center">{`${currency.name} (${currency.symbol})`}</TableCell>
           <TableCell align="center">{`${weatherData.description}`}</TableCell>
+          {/* Character for metric degrees parsed into cell.*/}
           <TableCell align="center">{`${
             temperData.temp
           }${"\u00b0"}C`}</TableCell>

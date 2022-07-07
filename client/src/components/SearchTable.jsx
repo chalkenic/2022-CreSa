@@ -5,7 +5,7 @@ import {
   TableHead,
   TableRow,
 } from "@mui/material";
-import React, { Fragment } from "react";
+import React from "react";
 import SearchRow from "./SearchRow";
 
 const SearchTable = ({ cities }) => {
@@ -22,9 +22,6 @@ const SearchTable = ({ cities }) => {
           <TableCell align="center" sx={{ fontWeight: 600 }}>
             Continent
           </TableCell>
-          {/* <TableCell align="right" sx={{ fontWeight: 800 }}>
-            Tourist Rating
-          </TableCell> */}
           <TableCell align="center" sx={{ fontWeight: 600 }}>
             Population
           </TableCell>
@@ -46,6 +43,7 @@ const SearchTable = ({ cities }) => {
         </TableRow>
       </TableHead>
       <TableBody>
+        {/* Parse all cities on local cache into table. Resets on page reload.*/}
         {cities.map((row, index) => (
           <SearchRow key={index} city={row} />
         ))}

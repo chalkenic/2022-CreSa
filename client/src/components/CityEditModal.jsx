@@ -12,6 +12,7 @@ import { makeStyles } from "@mui/styles";
 import { FormControlUnstyled } from "@mui/base";
 import CitiesDatabaseService from "../services/citydb.service";
 
+// Material UI styles parsed into modal to avoid inline styling when possible.
 const useStyles = makeStyles(() => ({
   titleText: {
     paddingBottom: "5 !important",
@@ -56,12 +57,11 @@ const useStyles = makeStyles(() => ({
 
 const CityEditModal = (props) => {
   const styles = useStyles();
-  const [scroll, setScroll] = useState("paper");
+  const [scroll] = useState("paper");
   const [rating, setRating] = useState("");
   const [established, setEstablished] = useState("");
 
-  console.log(props);
-
+  // Editing city data is optional; any blank fields will not be amended.
   const handleEdit = () => {
     if (rating.length < 1) {
       setRating(props.city.rating);

@@ -2,7 +2,16 @@ const db = require("../models");
 const City = db.cities;
 const Op = db.Sequelize.Op;
 
+// Controller holds all CRUD method functionality passed from client.
+
+/**
+ * Add a city into database.
+ * @param {*} req - data provided from API.
+ * @param {*} res - response confirmation.
+ * @returns confirmation response back to client.
+ */
 exports.create = (req, res) => {
+  // Request must include data.
   if (!req.body.name) {
     res.status(400).send({
       message: "City name must be provided!",
@@ -29,7 +38,7 @@ exports.create = (req, res) => {
 
     currency: req.body.currency,
   };
-
+  // use database route to append new city into database.
   City.create(city)
     .then((data) => {
       res.send(data);
@@ -70,7 +79,7 @@ exports.findOne = (req, res) => {
         });
       }
     })
-    .catch((error) => {
+    .catch(() => {
       res.status(500).send({
         message: "An error occurred while attempting to retrieve city " + id,
       });
@@ -116,7 +125,7 @@ exports.delete = (req, res) => {
         });
       }
     })
-    .catch((error) => {
+    .catch(() => {
       res.status(500).send({
         message: "Unable to delete city " + id,
       });

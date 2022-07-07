@@ -1,5 +1,6 @@
 import http from "../APIs/http-common.js";
 
+// Database functions for sending CRUD requests to server.
 class CitiesDatabaseService {
   getAll() {
     return http.get("/cities");

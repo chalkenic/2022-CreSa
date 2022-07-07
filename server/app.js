@@ -5,6 +5,7 @@ const express = require("express");
 const cors = require("cors");
 const app = express();
 
+// Access all database models and sync between node and mysql.
 const db = require("./app/models");
 db.sequelize.sync();
 
@@ -12,6 +13,7 @@ app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
+// Ensure local client can access CRUD methods on server.
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.header(
@@ -26,11 +28,12 @@ app.use((req, res, next) => {
   next();
 });
 
-// simple route to server port.
+// simple route to server port for sanity.
 app.get("/", (req, res) => {
   res.json({ message: "Welcome to CreditSafe's API!" });
 });
 
+// Apply all routes from file into express application.
 require("./app/routes/cities.routes")(app);
 
 module.exports = app;

@@ -10,10 +10,11 @@ import {
 } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { Box } from "@mui/system";
-import React, { Fragment, useEffect, useRef, useState } from "react";
+import React, { useState } from "react";
 import CitiesDatabaseService from "../services/citydb.service";
 import CitiesApiService from "../services/cityapi.service";
 
+// Material UI styles parsed into modal to avoid inline styling when possible.
 const useStyles = makeStyles(() => ({
   titleText: {
     paddingBottom: "5 !important",
@@ -48,9 +49,10 @@ const useStyles = makeStyles(() => ({
 
 const CityAddModal = (props) => {
   const styles = useStyles();
-  const [scroll, setScroll] = useState("paper");
+  const [scroll] = useState("paper");
   const [cityName, setCityName] = useState("");
 
+  // States to hold data from form for eventual parsing into database.
   const [cityCountry, setCityCountry] = useState("");
   const [cityState, setCityState] = useState("");
   const [rating, setRating] = useState("");
@@ -61,6 +63,7 @@ const CityAddModal = (props) => {
     props.setOpen(false);
   };
 
+  // Confirm fields have data entered before appending data.
   const handleGenerateData = () => {
     if (cityName.length < 1) {
       setError("Enter a city name.");
@@ -73,7 +76,7 @@ const CityAddModal = (props) => {
     } else if (established.length < 1) {
       setError("Enter a city establishment date.");
     } else {
-      console.log("got here 1!");
+      // Source country information from city provided for population & currency.
       CitiesApiService.getCountry(cityName)
         .then((response) => {
           var currencyTemp = Object.values(response.data[0].currencies)[0];
@@ -82,7 +85,8 @@ const CityAddModal = (props) => {
 
           handleAdd(population, currencyString);
         })
-        .catch(function (err) {
+        // Fields are left blank if no data returned from API call.
+        .catch(function () {
           var population;
           var currencyString;
 
@@ -92,7 +96,7 @@ const CityAddModal = (props) => {
   };
 
   const handleAdd = (pop, curr) => {
-    console.log(curr);
+    // Conditional statement only adds specific fields if API call was successful.
     if (pop !== null && curr !== null) {
       CitiesDatabaseService.create({
         name: cityName,

@@ -1,3 +1,4 @@
+// basic database configuration provided to server.
 module.exports = {
   HOST: "localhost",
   USER: "root",

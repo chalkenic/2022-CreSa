@@ -1,4 +1,5 @@
 module.exports = (sequelize, Sequelize) => {
+  // Build city table framework for data being entered.
   const City = sequelize.define("city", {
     name: {
       type: Sequelize.STRING,

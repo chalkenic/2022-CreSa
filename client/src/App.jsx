@@ -1,6 +1,5 @@
 import "./App.css";
 import AppRouter from "./pages/AppRouter";
-import Navbar from "./components/Navbar";
 
 const App = () => {
   return (

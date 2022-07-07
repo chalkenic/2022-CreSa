@@ -15,7 +15,8 @@ import CityAddModal from "../components/CityAddModal";
 import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
 import { Box } from "@mui/system";
 
-const AdminPage = (props) => {
+const AdminPage = () => {
+  // State holds all results from database.
   const [cityData, setCityData] = useState([]);
   const [open, setOpen] = useState(false);
 
@@ -31,15 +32,15 @@ const AdminPage = (props) => {
   };
 
   const handleDelete = () => {
-    CitiesDatabaseService.deleteAll().then((response) => {
+    CitiesDatabaseService.deleteAll().then(() => {
       window.location.reload();
     });
   };
 
+  // useEffect is called on page load to source all cities stored within database.
   useEffect(() => {
     setCityData([]);
     CitiesDatabaseService.getAll().then((response) => {
-      console.log(response.data);
       for (let index = 0; index < response.data.length; index++) {
         setCityData((data) => data.concat(response.data[index]));
       }

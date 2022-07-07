@@ -1,18 +1,12 @@
-import {
-  Alert,
-  Button,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
-} from "@mui/material";
+import { Button, Dialog, DialogActions, DialogTitle } from "@mui/material";
 import React, { useState } from "react";
 import CitiesDatabaseService from "../services/citydb.service";
 
 const CityDeleteModal = (props) => {
-  const [scroll, setScroll] = useState("paper");
-  const onDelete = (e) => {
-    CitiesDatabaseService.delete(props.city.id).then((response) => {
+  const [scroll] = useState("paper");
+  // Delete city using ID and reload page.
+  const onDelete = () => {
+    CitiesDatabaseService.delete(props.city.id).then(() => {
       window.location.reload();
     });
   };
